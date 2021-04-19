@@ -32,3 +32,7 @@ As conversões foram feitas a partir do arquivo types_mapping.json
 
 - script: view_amount_per_iso_merchant.py
     - Montante (valor) transacionado pago por ISO / merchant, por mes
+  
+
+- script: view_lowest_merchants.py
+    - Comerciantes que menos transacionaram durante o mes 
