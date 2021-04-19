@@ -1,12 +1,12 @@
 <h2> Desafio Hash </h2>
 
 Repositório com soluções propostas para o desafio de engenheiro de dados
-
 <br>
 
+
 <h3>Tecnologias utilizadas: </h3>
-*    Linguagem: Python 3.7
-*    Framework: Spark 3.0.1
+- Linguagem: Python 3.7
+- Framework: Spark 3.0.1
 
 
 <h3>Tratamentos aplicados: </h3>
