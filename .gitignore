@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#paulo
+.idea
+transactions.csv
+card_brand.csv
+output

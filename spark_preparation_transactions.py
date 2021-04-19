@@ -38,32 +38,33 @@ def get_json_schema_mapping(json_schema):
         print(f'Arquivo {json_schema} não encontrado')
 
 
-df = spark.read.csv(path="/home/linux/Downloads/transactions.csv",
-                    header=True,
-                    inferSchema=False,
-                    sep=";")
+if __name__ == '__main__':
 
+    df = spark.read.csv(path="transactions.csv",
+                        header=True,
+                        inferSchema=False,
+                        sep=";")
 
-df1 = lower_header(data_frame=df)
+    df1 = lower_header(data_frame=df)
 
-df2 = df1.select(
-    df1.id,
-    df1.created_at,
-    df1.merchant_id,
-    df1.valor,
-    df1.n_parcelas,
-    initcap(df1.nome_no_cartao),
-    when(
-        lower(df1.status) == "refunded", "refused"
-    ).when(
-        lower(df1.status) == "in process", "processing"
-    ).otherwise(lower(df1.status)),
-    df1.card_id,
-    df1.iso_id,
-    df1.card_brand,
-    regexp_replace(lower(df1.documento), pattern=r"(\D+)", replacement="")
-)
+    df2 = df1.select(
+        df1.id,
+        df1.created_at,
+        df1.merchant_id,
+        df1.valor,
+        df1.n_parcelas,
+        initcap(df1.nome_no_cartao),
+        when(
+            lower(df1.status) == "refunded", "refused"
+        ).when(
+            lower(df1.status) == "in process", "processing"
+        ).otherwise(lower(df1.status)),
+        df1.card_id,
+        df1.iso_id,
+        df1.card_brand,
+        regexp_replace(lower(df1.documento), pattern=r"(\D+)", replacement="")
+    )
 
-df3 = casting_fields(data_frame=df2, json_schema=get_json_schema_mapping("../dataset_config/types_mapping.json"))
+    df3 = casting_fields(data_frame=df2, json_schema=get_json_schema_mapping("types_mapping.json"))
 
-df3.show(50, truncate=False)
+    df3.write.csv(path="output/sanitize_transactions", header=True, sep=";")
