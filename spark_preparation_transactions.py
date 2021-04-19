@@ -1,5 +1,5 @@
 import json
-from pyspark.sql.functions import initcap, lower, regexp_replace, when
+from pyspark.sql import functions
 from spark_config import spark
 
 
@@ -53,16 +53,17 @@ if __name__ == '__main__':
         df1.merchant_id,
         df1.valor,
         df1.n_parcelas,
-        initcap(df1.nome_no_cartao),
-        when(
-            lower(df1.status) == "refunded", "refused"
+        functions.round(df1.valor / df1.n_parcelas, 2),
+        functions.initcap(df1.nome_no_cartao),
+        functions.when(
+            functions.lower(df1.status) == "refunded", "refused"
         ).when(
-            lower(df1.status) == "in process", "processing"
-        ).otherwise(lower(df1.status)),
+            functions.lower(df1.status) == "in process", "processing"
+        ).otherwise(functions.lower(df1.status)),
         df1.card_id,
         df1.iso_id,
         df1.card_brand,
-        regexp_replace(lower(df1.documento), pattern=r"(\D+)", replacement="")
+        functions.regexp_replace(functions.lower(df1.documento), pattern=r"(\D+)", replacement="")
     )
 
     df3 = casting_fields(data_frame=df2, json_schema=get_json_schema_mapping("types_mapping.json"))
