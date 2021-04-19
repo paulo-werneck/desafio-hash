@@ -1,7 +1,7 @@
 <h2> Desafio Hash </h2>
 
 Repositório com soluções propostas para o desafio de engenheiro de dados
-<br>
+<br><br><br>
 
 
 <h3>Tecnologias utilizadas: </h3>
