@@ -1,0 +1,13 @@
+{
+  "id": "string",
+  "created_at": "timestamp",
+  "merchant_id": "string",
+  "valor": "decimal(10,2)",
+  "n_parcelas": "int",
+  "nome_no_cartao": "string",
+  "status": "string",
+  "card_id": "bigint",
+  "iso_id": "int",
+  "card_brand": "int",
+  "documento": "string"
+}
